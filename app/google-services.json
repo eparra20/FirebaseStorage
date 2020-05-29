@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "860192823592",
+    "firebase_url": "https://gatitosapp-4138a.firebaseio.com",
+    "project_id": "gatitosapp-4138a",
+    "storage_bucket": "gatitosapp-4138a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860192823592:android:0aa3e63b727fb883d7581d",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860192823592-569f6s5l0c34ucn5h1jr1hv40qtjcb7c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiiGNY0z4qRg-Brln6I6PDGyneu1vnGyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860192823592-569f6s5l0c34ucn5h1jr1hv40qtjcb7c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

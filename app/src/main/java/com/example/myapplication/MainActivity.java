@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.util.List;
 
@@ -67,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPhotosReturned(List<File> imageFiles){
         Toast.makeText(this, "Foto tomada correctamente", Toast.LENGTH_SHORT).show();
-        Bitmap myBitmap = BitmapFactory.decodeFile(imageFiles.get(0).getAbsolutePath());
-        imageViewFoto.setImageBitmap(myBitmap);
+        Glide.with(this).load(imageFiles.get(0)).into(imageViewFoto);
 
     }
 }

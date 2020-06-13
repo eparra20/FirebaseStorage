@@ -1,12 +1,10 @@
-package com.example.myapplication;
+package com.example.myapplication.view;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +14,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.R;
+import com.example.myapplication.controller.PersonaController;
+import com.example.myapplication.model.Persona;
+import com.example.myapplication.util.ResultListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -24,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -35,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewFoto;
     private FirebaseStorage storage;
     private Button buttonBajarFoto;
+    private Button buttonAddPerson;
+    private Button buttonReadList;
 
     private ProgressBar progressBar;
+    private PersonaController personaController;
 
 
     @Override
@@ -48,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         imageViewFoto = findViewById(R.id.imageViewFoto);
         buttonBajarFoto = findViewById(R.id.buttonBajarFoto);
         progressBar = findViewById(R.id.progressBar);
+        buttonAddPerson = findViewById(R.id.buttonAddPerson);
+        buttonReadList = findViewById(R.id.buttonLeerList);
+        personaController = new PersonaController();
 
         storage = FirebaseStorage.getInstance();
 
@@ -57,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //aca es donde le vamos a decir que abra la camara
                 EasyImage.openCameraForVideo(MainActivity.this,1);
-
             }
         });
 
@@ -65,6 +73,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bajarFoto();
+            }
+        });
+
+        buttonAddPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Persona persona = new Persona("Robin", "Willians", "48");
+
+                personaController.addPerson(persona, new ResultListener<Persona>() {
+                    @Override
+                    public void onFinish(Persona result) {
+                        Toast.makeText(MainActivity.this, "Todo bien "+result.getNombre(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        buttonReadList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               personaController.getPersons(new ResultListener<List<Persona>>() {
+                   @Override
+                   public void onFinish(List<Persona> result) {
+                       Toast.makeText(MainActivity.this, result.get(0).getNombre(), Toast.LENGTH_SHORT).show();
+                   }
+
+                   @Override
+                   public void onError(String message) {
+                       Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                   }
+               });
             }
         });
 
